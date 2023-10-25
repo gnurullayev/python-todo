@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+
+{% block title %}{{user['name']}}{% endblock %}
+
+{% block content %}
+
+    <div class="add-post">
+        <div class="container">
+            <div class="form-box">
+                <form action="{{url_for('edit_post', id=user.id)}}" method="POST" class="row g-3 needs-validation">
+                    <div class="col-12">
+                        <div class="p-2">
+                            <label for="last-name" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="last-name" value="{{user['name']}}" name="name" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-2">
+                            <label for="job" class="form-label">Job</label>
+                            <input type="text" class="form-control" id="job" value="{{user['job']}}" name="job" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{user['email']}}" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="p-2 w-100">
+                           <button type="submit" class="btn btn-success w-100">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock %}

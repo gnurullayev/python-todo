@@ -42,6 +42,40 @@ def add_post():
         users.append(newUser)
         return redirect("/")
     return render_template("add-post.html")
+@app.route("/delete/<int:id>", methods=["GET","POST"])
+def delete_post(id):
+    if request.method == "GET":
+        userId = id
+        for user in users:
+            if user["id"] == userId:
+                print(userId)
+                print(user)
+                users.remove(user)
+        return redirect("/")
+
+    return render_template("index.html")
+
+@app.route("/edit-post/<int:id>", methods=["GET","POST"])
+def edit_post(id):
+    if request.method == "POST":
+        print(id, request.form)
+        for num in range(len(users)):
+            if users[num]['id'] == id:
+                newUser = {
+                    "id": users[num]['id'],
+                    "name": request.form['name'],
+                    "job": request.form['job'],
+                    "email":request.form['email']
+                }
+                users.remove(users[num])
+                users.insert(num,newUser)
+    
+        return redirect("/")
+    user = None
+    if id:
+        user = next((user for user in users if user["id"] == id),None)
+    return render_template("edit-post.html", user = user)
+
 
 if __name__ == '__main__':
     app.run(port=8000)
